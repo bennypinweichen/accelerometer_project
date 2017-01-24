@@ -1,0 +1,9 @@
+library(data.table); library(tidyr)
+setwd("/Users/Pin-Wei/Documents/accelerometer_project/Actigraph")
+Wrist <- read.csv("KERRIMT_Wrist_RH.csv")
+summary(Wrist$x)
+wrist <- as.data.table(Wrist)
+wrist[,Intensity := (sqrt(x^2 + y^2 + z^2))]
+wrist[,dt := (Intensity > 1.5)]
+
+write.csv(wrist, file = "Wrist.csv", col.names = TRUE)
